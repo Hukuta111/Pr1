@@ -1,0 +1,125 @@
+﻿<Window x:Class="Pr1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pr1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <!-- Анімація зміни положення камери -->
+                    <Point3DAnimationUsingKeyFrames
+                        Storyboard.TargetName="camera"
+                        Storyboard.TargetProperty="Position">
+                        <LinearPoint3DKeyFrame Value="0,0.5,3.5" KeyTime="0:0:4"/>
+                        <LinearPoint3DKeyFrame Value="-0.3,0.5,3.4" KeyTime="0:0:8"/>
+                        <LinearPoint3DKeyFrame Value="-0.5,0.5,3.4" KeyTime="0:0:12"/>
+                        <LinearPoint3DKeyFrame Value="-0.2,0.5,3.3" KeyTime="0:0:15"/>
+                    </Point3DAnimationUsingKeyFrames>
+                    <Vector3DAnimationUsingKeyFrames
+                         Storyboard.TargetName="camera"
+                        Storyboard.TargetProperty="LookDirection">
+                        <LinearVector3DKeyFrame Value="0.1,0,-3.5" KeyTime="0:0:4"/>
+                        <LinearVector3DKeyFrame Value="0.2,0,-3.5" KeyTime="0:0:10"/>
+                        <LinearVector3DKeyFrame Value="0.3,0,-3.2" KeyTime="0:0:15"/>
+                    </Vector3DAnimationUsingKeyFrames>
+
+                    <!-- Анімація обертання об'єктів -->
+                    <DoubleAnimation
+                        Storyboard.TargetName="rotationTransform1"
+                        Storyboard.TargetProperty="Angle"
+                        From="0" To="360" Duration="0:0:5" RepeatBehavior="Forever" />
+                    <DoubleAnimation
+                        Storyboard.TargetName="rotationTransform2"
+                        Storyboard.TargetProperty="Angle"
+                        From="0" To="360" Duration="0:0:5" RepeatBehavior="Forever" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
+        <Viewport3D>
+            <Viewport3D.Camera>
+                <PerspectiveCamera x:Name="camera" Position="0.5,0.5,3.5" LookDirection="0,0,-3.5"  />
+            </Viewport3D.Camera>
+            <Viewport3D.Children>
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <DirectionalLight Color="White" Direction="-1,-1,-2" />
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <GeometryModel3D>
+                            <GeometryModel3D.Geometry>
+                                
+                                <MeshGeometry3D Positions="-1,0,0 -0.5,0,0 -1,0.5,0 -0.5,0.5,0 
+                      -1,0,0.5 -0.5,0,0.5 -1,0.5,0.5 -0.5,0.5,0.5"
+     TriangleIndices="0,2,1 1,2,3 0,1,4 1,5,4 2,3,6 3,7,6 
+                      0,4,2 2,4,6 1,5,3 3,5,7 4,5,6 5,7,6"/>
+                            </GeometryModel3D.Geometry>
+                            <GeometryModel3D.Material>
+                                <MaterialGroup>
+                                    <DiffuseMaterial>
+                                        <DiffuseMaterial.Brush>
+                                            <!-- Тут можна вказати текстуру -->
+                                            <ImageBrush ImageSource="C:\Users\ntern\source\repos\Pr1\Pr1\Texture\texture.jpg"/>
+                                        </DiffuseMaterial.Brush>
+                                    </DiffuseMaterial>
+                                </MaterialGroup>
+                            </GeometryModel3D.Material>
+                            <!-- Обертання першого об'єкта -->
+                            <GeometryModel3D.Transform>
+                                <RotateTransform3D>
+                                    <RotateTransform3D.Rotation>
+                                        <AxisAngleRotation3D x:Name="rotationTransform1" Axis="0,1,0" Angle="0"/>
+                                    </RotateTransform3D.Rotation>
+                                </RotateTransform3D>
+                            </GeometryModel3D.Transform>
+                        </GeometryModel3D>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <DirectionalLight Color="White" Direction="1,1,2" />
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+                <!-- Додавання другого обертання -->
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <GeometryModel3D>
+                            <GeometryModel3D.Geometry>
+                                
+                                <MeshGeometry3D Positions="0,0,0 0.5,0,0 0,0.5,0 0.5,0.5,0 
+                      0,0,0.5 0.5,0,0.5 0,0.5,0.5 0.5,0.5,0.5"
+     TriangleIndices="0,2,1 1,2,3 0,1,4 1,5,4 2,3,6 3,7,6 
+                      0,4,2 2,4,6 1,5,3 3,5,7 4,5,6 5,7,6"/>
+                            </GeometryModel3D.Geometry>
+                            <GeometryModel3D.Material>
+                                <MaterialGroup>
+                                    <DiffuseMaterial>
+                                        <DiffuseMaterial.Brush>
+                                            <!-- Тут можна вказати текстуру -->
+                                            <ImageBrush ImageSource="C:\Users\ntern\source\repos\Pr1\Pr1\Texture\texture.jpg"/>
+                                        </DiffuseMaterial.Brush>
+                                    </DiffuseMaterial>
+                                </MaterialGroup>
+                            </GeometryModel3D.Material>
+                            <!-- Обертання другого об'єкта -->
+                            <GeometryModel3D.Transform>
+                                <RotateTransform3D>
+                                    <RotateTransform3D.Rotation>
+                                        <AxisAngleRotation3D x:Name="rotationTransform2" Axis="0,1,0" Angle="0"/>
+                                    </RotateTransform3D.Rotation>
+                                </RotateTransform3D>
+                            </GeometryModel3D.Transform>
+                        </GeometryModel3D>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+            </Viewport3D.Children>
+        </Viewport3D>
+    </Grid>
+</Window>
